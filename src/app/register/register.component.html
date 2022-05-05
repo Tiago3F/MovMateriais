@@ -1,0 +1,56 @@
+<div class="col-md-12">
+    <div class="card card-container">
+        <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" />
+        <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+            <h3 class="info-login" style="display: flex; align-items: center; justify-content: center;">Faça seu Cadastro</h3> <br>
+            <div class="form-group">
+                <label for="username">Nome do Usuário</label>
+                <input type="text" class="form-control" name="username" [(ngModel)]="form.username" required minlength="3" maxlength="20" #username="ngModel" />
+                <div class="alert-danger" *ngIf="username.errors && f.submitted">
+                    <div *ngIf="username.errors['required']">Nome do usuário é obrigatório!</div>
+                    <div *ngIf="username.errors['minlength']">
+                        Nome do usuário precisa ter no mínimo 3 caracteres!
+                    </div>
+                    <div *ngIf="username.errors['maxlength']">
+                        Username must be at most 20 characters
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" name="email" [(ngModel)]="form.email" required email #email="ngModel" />
+                <div class="alert-danger" *ngIf="email.errors && f.submitted">
+                    <div *ngIf="email.errors['required']">O email é obrigatório!</div>
+                    <div *ngIf="email.errors['email']">
+                        Digite um email válido!
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password">Senha</label>
+                <input type="password" class="form-control" name="password" [(ngModel)]="form.password" required minlength="6" #password="ngModel" />
+                <div class="alert-danger" *ngIf="password.errors && f.submitted">
+                    <div *ngIf="password.errors['required']">Senha é obrigatória!</div>
+                    <div *ngIf="password.errors['minlength']">
+                        A senha deve conter no mínimo 6 caracteres.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-block" style="border-radius: 20px; background-color: #3182CD; color: #fff;">Realizar Cadastro</button>
+            </div>
+
+            <div>
+                <a class="new-account" href="/login" style="display: flex; align-items: center; justify-content: center; text-decoration: none;">Retornar ao Login</a>
+            </div>
+
+            <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
+                Erro no cadastro:<br />{{ errorMessage }}
+            </div>
+        </form>
+
+        <div class="alert alert-success" *ngIf="isSuccessful">
+            Cadastro realizado com sucesso!
+        </div>
+    </div>
+</div>
